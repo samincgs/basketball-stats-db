@@ -1,16 +1,14 @@
 # Design Document
 
-By YOUR NAME HERE
+By Samin Sharif
 
 Video overview: <URL HERE>
 
 ## Scope
 
-In this section you should answer the following questions:
-
 ### Purpose
 
-I am a big fan of the NBA and basketball, so I wanted to create a SQL database to store all information about a regular NBA season. This database is designed to track basketball teams, players, games, and player performance statistics over multiple seasons. It allows users to store, organize, and query data such as player stats per game, team performance, and season records.
+I am a big fan of the NBA and basketball, so I wanted to create a SQL database to store information about a regular NBA season. This database is designed to track basketball teams, players, games, and player performance statistics over multiple seasons. It allows users to store, organize, and query data such as player stats per game, team performance, and season records.
 
 ### Inside the Scope
 
@@ -22,9 +20,9 @@ I am a big fan of the NBA and basketball, so I wanted to create a SQL database t
 
 ### Outside the Scope
 
-- **Detailed historical injury data, player contracts, or salaries.**
-- **Off-court events or personal life information about players.**
-- **Live tracking of games or real-time updates.**
+- **Historical injury data or salaries.**
+- **Personal life information about players.**
+- **Real time updates for games.**
 
 ## Functional Requirements
 
@@ -41,18 +39,34 @@ I am a big fan of the NBA and basketball, so I wanted to create a SQL database t
 
 - Real-time tracking of games or live updates.
 - Predictive analytics or machine learning projections.
-- Visualization dashboards or graphical reports (though the database can provide data for them).
+- Visualization dashboards or graphical reports.
 
 ## Representation
 
 ### Entities
 
-In this section you should answer the following questions:
+#### ER Diagram
 
-- Which entities will you choose to represent in your database?
-- What attributes will those entities have?
-- Why did you choose the types you did?
-- Why did you choose the constraints you did?
+![ER Diagram](er-diagram.png)
+
+The entities in this database represent the core components of a basketball tracking system. Each entity captures a different aspect of the league: players, teams, seasons, games, and player statistics.
+
+**Players**  
+The Players entity stores attributes such as `first_name`, `last_name`, `position`, `height_cm`, and `weight_kg`, along with a `team_id` foreign key to link each player to their team. The chosen data types are `VARCHAR` for names, `ENUM` for positions to ensure only valid roles can be entered, `INT` for height, and `DECIMAL` for weight to allow fractional precision. Constraints such as `NOT NULL` ensure that essential player details are always present.
+
+**Teams**  
+The Teams entity includes attributes like `name`, `city`, `coach`, and `court_name`. These are stored as `VARCHAR` fields to support text data of variable length. A `PRIMARY KEY` on the `id` ensures each team can be uniquely identified, and the team name and city combination prevents ambiguity between teams.
+
+**Seasons**  
+The Seasons entity tracks the `year`, `start_date`, and `end_date` of each season. The `year` is marked as `UNIQUE` to prevent duplicate seasons, while `DATE` types are used to ensure accurate time-based queries.
+
+**Games**  
+The Games entity includes `game_date`, `home_team_id`, `away_team_id`, `score_home`, `score_away`, and `season_id`. `DATE` ensures proper handling of the game schedule, while integer fields track team scores. Foreign keys to `teams` and `seasons` maintain referential integrity so every game links back to valid teams and a valid season.
+
+**Player_Stats**  
+The Player_Stats entity captures a player’s performance in a single game. It contains attributes such as `points`, `rebounds`, `assists`, `steals`, `blocks`, `fouls`, and `minutes_played`. These are stored as `INT` or `DECIMAL` depending on whether fractional values are possible (e.g., `minutes_played` as `DECIMAL(4,1)`). A `UNIQUE(player_id, game_id)` constraint ensures that each player has at most one stats entry per game, preventing duplication.
+
+The chosen data types and constraints across all entities were selected to balance accuracy, integrity, and efficiency. `INT` and `DECIMAL` are used for numerical data, `VARCHAR` for text fields, and `ENUM` for limited sets of categorical data. Foreign keys and uniqueness constraints ensure strong referential integrity while avoiding inconsistent or duplicate records.
 
 ### Relationships
 
