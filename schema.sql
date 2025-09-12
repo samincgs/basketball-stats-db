@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS players (
     height_cm INT NOT NULL,
     weight_kg DECIMAL(5, 2) NOT NULL,
     team_id INT,
-    FOREIGN KEY(team_id) REFERENCES teams(id)
+    FOREIGN KEY(team_id) REFERENCES teams(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS seasons (
@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS games (
     score_home INT,
     score_away INT,
     season_id INT,
-    FOREIGN KEY (home_team_id) REFERENCES teams(id),
-    FOREIGN KEY (away_team_id) REFERENCES teams(id),
-    FOREIGN KEY (season_id) REFERENCES seasons(id)
+    FOREIGN KEY (home_team_id) REFERENCES teams(id) ON DELETE CASCADE,
+    FOREIGN KEY (away_team_id) REFERENCES teams(id) ON DELETE CASCADE,
+    FOREIGN KEY (season_id) REFERENCES seasons(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS player_stats (
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS player_stats (
     blocks INT DEFAULT 0,
     fouls INT DEFAULT 0,
     minutes_played INT,
-    FOREIGN KEY (player_id) REFERENCES players(id),
-    FOREIGN KEY (game_id) REFERENCES games(id),
+    FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
     UNIQUE(player_id, game_id)
 );
 
