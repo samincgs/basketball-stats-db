@@ -12,7 +12,7 @@ SELECT id, game_date, home_team_id, away_team_id, score_home, score_away
 FROM games
 WHERE season_id = 2;
 
--- 3. Get the total points scored by a player in a season (using the player_totals_by_season view)
+-- 3. Get the total points scored by a player in a season (using the view i created player_totals_by_season view)
 SELECT first_name, last_name, season, total_points
 FROM player_totals_by_season
 WHERE player_id = 5 AND season = 2024;

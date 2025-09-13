@@ -2,7 +2,7 @@
 
 By Samin Sharif
 
-Video overview: <URL HERE>
+Video overview: https://youtu.be/HXnTMIkd5kE
 
 ## Scope
 
